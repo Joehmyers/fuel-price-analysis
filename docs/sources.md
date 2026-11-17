@@ -120,3 +120,18 @@ the only long record.
   empty, so they cannot be used as-of a date.
 - **Limit:** CPI is rarely revised, so we keep only the value as it stands now.
   We have not checked first-release values against later ones.
+
+## Cleaning results (17 Nov 2026 run)
+
+- **Stations:** 8,525 placed with postcodes.io (8,403 by postcode, 122 by
+  coordinates); none unplaced. England 6,546, Scotland 853, Northern Ireland
+  601, Wales 525. Regions: the nine English regions plus Scotland, Wales and
+  Northern Ireland as one region each (12 in all). Credit: postcodes.io, which
+  carries ONS and Ordnance Survey data under the Open Government Licence.
+- **Flags on 1,281,662 price rows (none deleted):** out of range 1,190; jump
+  over 30% 1,585; stale 1,296; bad station coordinates 1,158 (56 stations;
+  64 rows belong to a station missing from stations.csv and are flagged too).
+- **Unit fix:** changed 0 rows. FuelCosts holds no prices in pounds. The
+  rule exists for other feeds.
+- **Not fixed:** values such as 999.9 and 1,549 may be pence-times-ten or
+  placeholders; we cannot tell, so they are flagged only.
