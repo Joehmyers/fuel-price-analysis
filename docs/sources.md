@@ -39,3 +39,44 @@ This file fills in as each fetcher is built.
   week whose data row is dated Monday 16 November. So weeks are matched on the
   release date, not on the log's week label.
 - **Fuel types:** petrol and diesel only, so no E10/E5 or premium split here.
+
+## 2. FuelCosts open data (the back-fill)
+
+- **What:** an unofficial copy of the official Fuel Finder feed (station
+  forecourt prices). Not run by the government.
+- **Link:** <https://fuelcosts.co.uk/download> (files at `/api/download/price-history`
+  and `/api/download/stations`; no sign-up).
+- **Licence:** the underlying data is Open Government Licence v3.0. Credit:
+  "FuelCosts.co.uk. UK Fuel Price Data. Source: UK Government Fuel Finder,
+  Open Government Licence v3.0."
+- **What we read on 17 Nov 2026:**
+  - `price_history.csv`: 1,281,662 rows, 174 MB. Columns: `id`, `node_id`
+    (station), `fuel_type`, `price_pence`, `recorded_at`, `source_updated_at`.
+    8,325 stations. `recorded_at` runs 7 Feb 2026 to 17 Nov 2026.
+  - `stations.csv`: 8,525 rows, 21 columns, including `postcode`, `latitude`,
+    `longitude` (none missing), `is_motorway`, `is_supermarket`, closure flags.
+  - Fuel types: B7_STANDARD 462,712 rows; E10 399,193; E5 233,762;
+    B7_PREMIUM 182,783; HVO 1,624; B10 1,588.
+- **Only price changes are stored**, so a day's price for a station is the last
+  change before that day (carried forward).
+- **Two times per row:** `source_updated_at` is when the station set the price
+  (it reaches back to 1 Feb 2025). `recorded_at` is when FuelCosts first saw it
+  (median 3.5 minutes later). The history before 7 Feb 2026 is therefore a
+  one-off snapshot of older prices, not a true record. For "when did it become
+  public" we use `recorded_at`, not `source_updated_at`.
+- **Dirty values:** 311 prices below 10p, 641 below 80p, 549 above 300p; the
+  maximum is 2,009.9. Flagged in cleaning, not deleted.
+
+### Comparison of the copies of this data
+
+| Copy | What it holds | Verdict |
+|---|---|---|
+| FuelCosts API | Every price change since 7 Feb 2026, with two timestamps. | **Use this.** Longest history, and it carries the "seen at" time we need. |
+| Hugging Face `jamesb7/fuel-prices-uk` | The same two files, uploaded daily (price file 173.5 MB when checked, slightly older than the live download). Licence listed as "other: OGL v3". | Same data, a day behind. Not needed. |
+| Kaggle `jamesb7/fuel-prices-uk` | Same author and the same files as Hugging Face per the FuelCosts page. Page loads but I did not download it (needs a login). | Not checked directly. Not needed. |
+| GitHub `matthewgall/fuelfinder-archive` (MIT) | Hourly Go job, 566 commits from 15 Feb 2026. `data.csv` (7.9 MB) holds only the current prices; the first data commit is 16 Feb 2026. History lives in the commit log, one snapshot per commit. | A second, independent record from 16 Feb. Worth using later to spot-check FuelCosts, but each snapshot needs its own download. |
+
+None of the copies holds anything from before February 2026. The official
+feed itself is new, so the station-level history is about nine months long.
+That is the main limit on this work. The DESNZ weekly series (2003 onward) is
+the only long record.
