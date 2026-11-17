@@ -80,3 +80,43 @@ None of the copies holds anything from before February 2026. The official
 feed itself is new, so the station-level history is about nine months long.
 That is the main limit on this work. The DESNZ weekly series (2003 onward) is
 the only long record.
+
+## 3. Official Fuel Finder CSV (our own growing archive)
+
+- **What:** current prices and forecourt details for every UK station, updated
+  twice a day. GOV.UK says prices appear within 30 minutes of a change.
+- **Link:** GOV.UK "Access the latest fuel prices and forecourt data"
+  <https://www.gov.uk/guidance/access-the-latest-fuel-prices-and-forecourt-data-via-api-or-email>,
+  which leads to <https://www.developer.fuel-finder.service.gov.uk/fuel-finder/access-latest-fuelprices>.
+- **Licence:** Open Government Licence v3.0 (stated at the foot of every GOV.UK
+  page). Credit: "UK Government, Fuel Finder".
+- **How we get it:** the page has no plain link. Its download link is filled in
+  by JavaScript from an undocumented endpoint that returns a token, so we do not
+  build on that. The official routes are an email subscription (needs a sign-up,
+  done by you, not by this code) or the API (not used yet). Once you subscribe,
+  put the link from the email in `FUEL_FINDER_CSV_URL` (environment or `.env`).
+  Then run `python -m src.fetch.fuel_finder` twice a day. Each run saves one
+  untouched snapshot with its fetch time under `data/raw/fuel_finder/`.
+- **Not yet confirmed:** whether the emailed link is permanent or expires, the
+  column names (we will read them from the first file), and the exact release times.
+- **Status:** collector written and tested with a stand-in download; it has
+  not run against the real file because no link exists yet.
+
+## 4. ONS consumer price index (CPI)
+
+- **What:** monthly CPI, all items, "CPI INDEX 00: ALL ITEMS 2015=100".
+- **Series:** ID `D7BT`, dataset `MM23`, base year 2015 = 100 (confirmed in the
+  file header). Link:
+  <https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/d7bt/mm23>
+- **Licence:** Open Government Licence v3.0. Credit: "Office for National
+  Statistics".
+- **Rows read (17 Nov 2026):** 465 months, January 1988 to September 2026,
+  latest value 144.1. The next release is 18 November 2026 (October data).
+- **Release dates:** the series file gives only the latest release date (21 Oct
+  2026). The page of previous versions lists every earlier release since
+  15 Dec 2015, 132 in all. A month is treated as public on the first release
+  after the month ends, at 07:00 UK time (the usual ONS time; not stated in the
+  files). Months before November 2015 have no known release date and are left
+  empty, so they cannot be used as-of a date.
+- **Limit:** CPI is rarely revised, so we keep only the value as it stands now.
+  We have not checked first-release values against later ones.
