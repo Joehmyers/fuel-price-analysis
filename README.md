@@ -31,6 +31,19 @@ every path is set in `src/config.py`.
 | `tests/` | Tests |
 | `docs/` | Sources, plans, decisions (from the template) |
 
+## Run order
+
+```bash
+python -m src.fetch.desnz && python -m src.fetch.fuelcosts && python -m src.fetch.ons_cpi
+python -m src.clean.desnz && python -m src.clean.cpi
+python -m src.clean.stations && python -m src.clean.fuelcosts
+python -m src.features.regional && python -m src.features.charts
+```
+
+The answer is in `reports/regional-variation-answer.md`. The official Fuel
+Finder collector (`src/fetch/fuel_finder.py`) needs the link from the
+subscription email; see `docs/sources.md`.
+
 ## Use
 
 ```bash
