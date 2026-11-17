@@ -9,6 +9,8 @@ regional prices sit from the UK price.
 So the code is plain Python, the data is parquet (a compact table file), and
 every path is set in `src/config.py`.
 
+**Working in Databricks? Start with [DATABRICKS.md](DATABRICKS.md).**
+
 ## Rules
 
 - No private or client data, and no credentials, ever enter this repo.
@@ -28,6 +30,7 @@ every path is set in `src/config.py`.
 | `notebooks/` | The analysis |
 | `reports/` | The one-page answer |
 | `data/raw`, `data/clean` | Downloads and cleaned tables (not in git) |
+| `datasets/public/` | Two small public tables, committed so the repo runs without a download |
 | `tests/` | Tests |
 | `docs/` | Sources, plans, decisions (from the template) |
 

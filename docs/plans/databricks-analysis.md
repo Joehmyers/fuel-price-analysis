@@ -52,21 +52,21 @@ aggregate numbers cleared for sharing.
 
 ### A. Move the code and the public data
 
-- [ ] A1. Confirm with the Databricks admin: can a cluster reach gov.uk, ons.gov.uk
-      and api.postcodes.io? Can a Git folder (Databricks Repos) connect to
-      `Joehmyers/fuel-price-analysis`? Record the answers in `docs/sources.md`.
-- [ ] A2. If outbound access is allowed, run `src.fetch.desnz`, `src.fetch.ons_cpi`,
-      `src.clean.desnz`, `src.clean.cpi` and `src.features.real_prices` in a
-      Databricks job. If not, run them here and upload `desnz_weekly.parquet`,
-      `desnz_real.parquet` and `cpi_monthly.parquet` (public data) to a Databricks
-      volume. Set `FUEL_DATA_DIR` so `src/config.py` points at the volume.
-- [ ] A3. Write the three files to a Delta table `fuel_prices_weekly` with columns
-      `price_date`, `fuel`, `pence_per_litre`, `real_pence_asof`, `published_at`,
-      `published_at_source`. Add a note that 1,306 of 2,448 CPI release times are
-      assumed (months before Nov 2015).
-- [ ] A4. Run `ops/check.sh` in a Databricks terminal or notebook shell to prove
-      the 26 tests pass there. Fix any path or version difference in
-      `src/config.py`, not elsewhere.
+The public data is committed in `datasets/public/` (see its README), so no
+download is needed. [DATABRICKS.md](../../DATABRICKS.md) is the entry point for
+whoever works in Databricks.
+
+- [x] A1. Commit the two public tables (`desnz_real.parquet`, `cpi_monthly.parquet`,
+      132 KB in all) with a column guide, and a test that guards them
+      (`tests/test_public_snapshot.py`).
+- [ ] A2. Upload the repo to Databricks as a Git folder or a zip. Confirm the tests
+      pass there (`python -m pytest -q`). Fix any path difference in `src/config.py`.
+- [ ] A3. Write the weekly prices to a Delta table `fuel_prices_weekly` with
+      `published_at` kept. Note that 1,306 of 2,448 CPI release times are assumed
+      (months before Nov 2015).
+- [ ] A4. Only if the data needs refreshing: ask the admin whether a cluster can
+      reach gov.uk and ons.gov.uk, then run the fetch and clean scripts. Record
+      the answer in `docs/sources.md`.
 
 ### B. Prepare the demand side (inside Databricks only)
 

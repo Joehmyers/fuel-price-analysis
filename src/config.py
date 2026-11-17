@@ -15,6 +15,10 @@ RAW_DIR = DATA_DIR / "raw"
 CLEAN_DIR = DATA_DIR / "clean"
 REPORTS_DIR = ROOT / "reports"
 
+# Small public tables committed with the repo (see datasets/public/README.md), so a
+# fresh clone, such as one uploaded to Databricks, can run without any download.
+PUBLIC_DIR = Path(os.environ.get("FUEL_PUBLIC_DIR", ROOT / "datasets" / "public"))
+
 # Be polite to public servers: identify ourselves and wait between requests.
 USER_AGENT = "fuel-price-analysis/0.1 (research; plain python)"
 REQUEST_PAUSE_SECONDS = 2.0
