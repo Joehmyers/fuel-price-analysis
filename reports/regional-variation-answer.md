@@ -145,12 +145,15 @@ region's gap. We measured the regional-only part, from 15 March to 17 November
 ## Inflation (CPI)
 
 Prices in this report are in pence as published, not adjusted for inflation.
-Adjusting is not needed here: gaps are in pence on the same day, so general price rises
-cancel out. CPI rose 2.9% from February to September 2026 (140.1 to 144.1),
-against a rise of over 20% in E10 (132 p in February, 162 p in late August). It would matter in stage 2 if the long 2003 onward
-DESNZ series is used, to put old prices in today's money. Fuel is part of CPI,
-and each month's figure comes about three weeks after the month ends, so use
-the release dates already stored.
+Adjusting is not needed for the regional results: gaps are in pence on the same
+day, so general price rises cancel out, and CPI rose only 2.9% from February to
+September 2026 (140.1 to 144.1).
+
+It does matter for the long DESNZ series, so we built an adjusted version
+(`src/features/real_prices.py`). Each weekly price uses only the CPI that ONS had
+released by then. Example: diesel's 2022 peak was 199.2 p as published and 238 p
+in September 2026 money, above the 200.0 p of October 2026. See
+`docs/research/desnz-retreat.md`, section "Inflation", for the method and numbers.
 
 ## Charts
 

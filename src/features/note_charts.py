@@ -123,6 +123,24 @@ def relative_dispersion(areas: pd.DataFrame, spread: pd.DataFrame):
     _save(fig, "relative_dispersion.png")
 
 
+def real_vs_nominal():
+    """Nominal and inflation-adjusted DESNZ prices, in the money of September 2026."""
+    d = pd.read_parquet(config.CLEAN_DIR / "desnz_real.parquet")
+    d["day"] = pd.to_datetime(d["price_date"])
+    fig, axes = plt.subplots(1, 2, figsize=(10, 3.8), sharey=True)
+    for ax, fuel, title in zip(axes, ["unleaded_petrol", "diesel"], ["Unleaded petrol", "Diesel"], strict=True):
+        x = d[d["fuel"] == fuel].set_index("day")
+        ax.plot(x.index, x["pence_per_litre"], color=GREY, lw=1.2, label="As published")
+        ax.plot(x.index, x["real_pence_asof"] * 144.1 / 100, color=BLUE, lw=1.4,
+                label="Adjusted for inflation (Sep 2026 money)")
+        ax.set_title(title, loc="left", fontsize=10)
+        _clean(ax)
+    axes[0].set_ylabel("Pence per litre")
+    axes[0].legend(frameon=False, fontsize=8, loc="upper left")
+    fig.suptitle("UK weekly pump price, as published and adjusted for inflation", x=0.01, ha="left", fontsize=11)
+    _save(fig, "real_vs_nominal.png")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     areas, _, desnz = analysis.load()
@@ -133,6 +151,7 @@ def main():
     petrol_vs_diesel(desnz)
     regional_gaps(areas)
     relative_dispersion(areas, spread)
+    real_vs_nominal()
 
 
 if __name__ == "__main__":

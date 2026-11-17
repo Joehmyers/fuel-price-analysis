@@ -135,3 +135,12 @@ the only long record.
   rule exists for other feeds.
 - **Not fixed:** values such as 999.9 and 1,549 may be pence-times-ten or
   placeholders; we cannot tell, so they are flagged only.
+
+## Inflation adjustment (built from sources 1 and 4)
+
+`src/features/real_prices.py` joins each DESNZ weekly price to the latest CPI
+that ONS had released when the price became public, then divides: real pence
+(2015 prices) = pence x 100 / CPI. Months before November 2015 have no known
+release date, so the 15th of the following month is assumed (1,306 of 2,448
+rows). Output: `data/clean/desnz_real.parquet`, with the as-of and hindsight CPI
+side by side.

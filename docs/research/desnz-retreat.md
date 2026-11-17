@@ -152,7 +152,7 @@ of the two, built as an index (each series set to 100 at the start), keeps
   and one fall; the long series holds three episodes.
 - **Record prices, in pence as published (not adjusted for inflation).** Petrol
   ran from 74.2 p (July 2003) to 191.6 p (July 2022). Diesel reached a record
-  200.0 p on 12 October 2026. In the money of September 2026 the 2022 peak was
+  200.0 p on 12 October 2026. After adjusting for inflation the 2022 peak was
   higher still (see "Inflation" below).
 - **A source that agrees with the station data.** On 41 Mondays, the station
   average sat 0.7 p above DESNZ, with a correlation of 0.99 for levels and
@@ -163,27 +163,43 @@ What we give up: any country or region detail, and the Northern Ireland effect.
 
 ## Inflation
 
-None of the prices in this note is adjusted for inflation. They are in pence as
-published (nominal). The ONS consumer price index (CPI) is fetched and cleaned
-(`data/clean/cpi_monthly.parquet`) but not applied.
+![Prices as published and adjusted for inflation](figures/real_vs_nominal.png)
 
-- **For the regional work it does not matter.** Gaps and spreads are compared on
-  the same day, and CPI rose 2.9% from February to September 2026.
-- **For the long series it does.** In the money of September 2026 (using the
-  CPI series as it stands now, not as it was known at the time), the peaks were:
+The prices in steps 1 to 6 are in pence as published (nominal). The adjusted
+series is built in `src/features/real_prices.py` and saved to
+`data/clean/desnz_real.parquet`.
 
-| Peak | Petrol, nominal | Petrol, real | Diesel, nominal | Diesel, real |
+**Method.** Real price = pence x 100 / CPI (2015 = 100), so the unit is "pence of
+2015". Each weekly price uses the latest CPI that ONS had released when that
+price became public (`published_at`), so a forecast never sees a future CPI.
+For months before November 2015 the release date is unknown; we assume the 15th
+of the following month (1,306 of 2,448 rows). The CPI used was a median of 15
+days old when the price came out, and at most 43.
+
+**What it shows**, in the money of September 2026 (multiply 2015 pence by 1.441):
+
+| Peak | Petrol as published | Petrol adjusted | Diesel as published | Diesel adjusted |
 |---|---|---|---|---|
-| 2008 | 119.4 p | 202.2 p | 132.9 p | 225.0 p |
-| 2022 | 191.6 p | 225.9 p | 199.2 p | 235.4 p |
-| 2026 (to September) | 173.5 p | 173.5 p | 197.6 p | 197.6 p |
+| 2008 | 119.4 p | 203 p | 132.9 p | 226 p |
+| 2022 | 191.6 p | 229 p | 199.2 p | 238 p |
+| 2026 (to 16 Nov) | 175.3 p | 176 p | 200.0 p | 201 p |
 
-- Petrol in June 2003 (74.6 p) is 142.6 p in September 2026 money, so after
-  adjusting, it is up 22%, not 133%.
-- So "record" diesel in October 2026 is true only in nominal terms. In real terms
-  2022 was higher, and the 2008 diesel peak was above the 2026 one.
-- A model should test the raw and the adjusted price. When it does, use the CPI
-  value public at each date (`published_at`), not the final series.
+- **June 2003** petrol (74.6 p as published) is 142 p in today's money. Adjusted,
+  petrol is up 17% since 2003 (to 167.1 p); as published it is up 124%.
+- **"Record" diesel in October 2026 holds only as published.** After adjusting,
+  the 2022 peak (238 p) is 18% higher, and the 2008 peak (226 p) is above 2026.
+- **Weekly moves barely change.** The weekly change in the adjusted price
+  correlates 0.95 with the weekly change as published, because CPI moves slowly.
+  The adjusted series has a small jump in each week a new CPI arrives.
+- **As-of against hindsight.** Using the CPI of each price's own month (known
+  only later) instead of the as-of CPI changes the adjusted price by 0.5% on
+  average and 3.6% at most. The gap is the two-month delay in publication, not
+  revisions.
+- **For the regional work it still does not matter.** CPI rose 2.9% from
+  February to September 2026.
+- **Not yet tested:** whether the adjusted price predicts demand better than the
+  raw price. That needs the AA call-out data, so it moves to stage 2. Fuel is part
+  of CPI, which slightly links the two series.
 
 ## Contradictions
 
@@ -213,7 +229,7 @@ published (nominal). The ONS consumer price index (CPI) is fetched and cleaned
   regional sales.
 - **The official Fuel Finder CSV.** The collector is written but has not run on
   real data, because no emailed link exists yet.
-- **First-release CPI values.** CPI is not used in this note.
+- **First-release CPI values.** We use today's CPI figure for each month. ONS rarely revises CPI, but we have not checked.
 
 ## Recommendation
 
