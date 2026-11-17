@@ -75,6 +75,22 @@ left out: DESNZ "unleaded" is mostly E10, and E5 sells about 18 p higher.
 - **Long record only nationally.** DESNZ gives UK petrol and diesel since 2003
   but no regions.
 
+## Which fuels to carry into stage 2
+
+Use two fuel series: **E10 petrol** and **standard diesel**.
+
+- E10 and E5 weekly price changes correlate at 0.97, and standard and premium
+  diesel at 0.98, so the second fuel in each pair adds nothing.
+- Petrol and diesel correlate at 0.89 to 0.92 in weekly changes, yet differ
+  enough to keep apart: for each 1 p E10 moves, standard diesel moves about
+  1.45 p, and the diesel premium over E10 ranged from 13.5 p to 33.4 p.
+- Northern Ireland's gap behaves the same way: petrol gaps move together
+  (0.98), diesel gaps move together (0.95), but a petrol gap and a diesel gap
+  correlate only 0.3 to 0.4.
+- The two series are correlated, so a model with both can give unstable
+  coefficients. Test each alone, or use one fuel's level plus the diesel minus
+  petrol difference.
+
 ## What the spread could mean for traffic
 
 Elasticity is the percentage change in traffic for a 1% change in price. The
