@@ -11,9 +11,9 @@ about 2 p of the UK average, which is under 1.5% of the price. Northern Ireland
 is the exception: it is 6 p cheaper than average for E10 petrol and 8 p for
 standard diesel, and its gap is growing. Whether a regional feature earns its
 place depends on how much call-out demand moves with a 1 to 2 p difference.
-This data cannot answer that; stage 2 can. Published traffic elasticities put the
-most a Great Britain regional gap could explain at about 0.1% to 0.6% of traffic
-(see "What the spread could mean for traffic").
+This data cannot answer that; stage 2 can. People respond to price changes, not levels, and a
+Great Britain region's weekly price change tracks the UK change with correlation
+0.99 or higher (see "What the spread could mean for traffic").
 
 ## The numbers (E10 petrol; standard diesel in brackets)
 
@@ -93,37 +93,36 @@ Use two fuel series: **E10 petrol** and **standard diesel**.
 
 ## What the spread could mean for traffic
 
-Elasticity is the percentage change in traffic for a 1% change in price. The
-figures below come from a research report cited in chat; we have not opened the
-papers (see `docs/research/traffic-elasticity.md`). Reported UK values run from
--0.07 (HM Treasury, short run) to -0.29 (Goodwin and others, long run).
+People respond to changes in price, not to its level (elasticity is the
+percentage change in traffic for a 1% change in price). A region that has been
+1.5 p dearer for months has already adjusted. The figures below use reported UK
+elasticities of -0.07 to -0.29 from a research report cited in chat. We have not
+opened the papers (see `docs/research/traffic-elasticity.md`).
 
-Turn the regional gaps into percentages of the price, then multiply by the
-elasticity (E10 at 161 p, standard diesel at 185 p, 15 Mar to 17 Nov 2026):
+What reaches a driver is the national price move plus any change in their
+region's gap. We measured the regional-only part, from 15 March to 17 November
+2026:
 
-| | Price gap | Traffic effect at -0.07 | at -0.29 |
-|---|---|---|---|
-| E10, top to bottom across Great Britain (3.1 p) | 1.9% | 0.13% | 0.56% |
-| E10, Northern Ireland against the UK (6.1 p) | 3.8% | 0.27% | 1.1% |
-| Diesel, top to bottom across Great Britain (2.8 p) | 1.5% | 0.11% | 0.44% |
-| Diesel, Northern Ireland against the UK (7.8 p) | 4.2% | 0.29% | 1.2% |
-| For scale: the UK price rise from March to October | about 24% | 1.6% to 1.7% | 6.8% to 7.0% |
+| | Weekly change, typical size | Traffic effect |
+|---|---|---|
+| UK price, E10 | 2.4 p (1.5%) | 0.1% to 0.4% a week |
+| UK price, diesel | 3.7 p (2.0%) | 0.1% to 0.6% a week |
+| Regional only, Great Britain, E10 | 0.20 p | 0.01% to 0.04% a week |
+| Regional only, Great Britain, diesel | 0.26 p | 0.01% to 0.04% a week |
+| Regional only, Northern Ireland, E10 | 0.83 p | 0.04% to 0.15% a week |
+| Regional only, Northern Ireland, diesel | 1.24 p | 0.05% to 0.2% a week |
 
-Read it this way:
-
-- A Great Britain regional gap is worth at most about 0.1% to 0.6% of traffic.
-  That is about one twelfth of the effect of the national price swing, and far
-  below the weather or school holidays.
-- Northern Ireland is the one case that could show up, at up to about 1%.
-- This is a ceiling, not a forecast. Regional gaps are persistent, so people
-  there have adapted already; the elasticities describe how traffic reacts to a
-  change in price, not why one region differs from another. Drivers also cross
-  regional borders. Different roads, fleets and incomes would swamp a 0.1%
-  effect.
-- The research suggests a bigger lever may be the national price level. Its
-  effect builds up over weeks, and delayed servicing could raise breakdowns per
-  mile months later. Stage 2 should test a lagged national price, with the
-  regional gap as a second, smaller candidate.
+- A Great Britain region's weekly price change correlates 0.99 or higher with
+  the UK change. There is almost nothing left that is specific to the region.
+- Northern Ireland is the one case that moves on its own. Over eight weeks its
+  gap changed by up to 4.9 p (E10) and 8.4 p (diesel): about 0.2% to 1.3% of
+  traffic over two months.
+- An earlier draft multiplied the size of each gap by the elasticity. That
+  overstated the effect, because a standing gap is not a price change.
+- The national price move is the stronger candidate. Its effect builds up over
+  weeks, and delayed servicing could raise breakdowns per mile months later.
+  Stage 2 should test lagged national price changes, with rises and falls
+  separate, and treat the regional gap change as a second, smaller candidate.
 - No study links UK fuel prices to roadside-assistance demand. Only your own
   call-out data, split by reason code (such as out of fuel), can show it.
 

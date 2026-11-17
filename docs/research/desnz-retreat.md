@@ -13,9 +13,9 @@ we have enough data to do that, and if not, what do we use instead?
 
 Prices differ little between regions of Great Britain: almost always within 2
 pence per litre of the UK average. Northern Ireland is the one clear exception,
-about 6 pence cheaper for petrol. Published traffic studies suggest even that
-gap moves traffic by about 1% at most, and a Great Britain gap by about 0.1% to
-0.6%. We also have only nine months of station prices, and no country-level
+about 6 pence cheaper for petrol. People respond to price changes, not levels, and a
+Great Britain region's price changes almost in step with the UK price (correlation
+0.99 or higher), so little is left that is specific to the region. We also have only nine months of station prices, and no country-level
 history before February 2026. So we fall back to the DESNZ weekly UK series for
 petrol and diesel, which runs from June 2003 and covers more price shocks. We
 keep the regional work, and the daily collector, for when the history is longer.
@@ -67,21 +67,28 @@ changed by less than 0.05 p for each 1 p the UK price moved. So the national
 price tells you nearly all there is to know about the regional price, apart from
 a steady offset. Northern Ireland is the one place the offset itself drifts.
 
-### 4. What a gap could do to traffic
+### 4. People respond to price changes, not price levels
 
-Reported UK elasticities run from -0.07 to -0.29 (`docs/research/traffic-elasticity.md`).
-Multiplying by the gaps gives:
+Elasticity is about changes: a 10% rise cuts traffic by about 1%. A region that
+has been 1.5 p dearer for months has already adjusted. What reaches a driver is
+the change in their own price, which is the national move plus any change in
+their region's gap.
 
-| Gap | As % of price | Traffic effect |
-|---|---|---|
-| E10, Great Britain top to bottom (3.1 p) | 1.9% | 0.13% to 0.56% |
-| E10, Northern Ireland (6.1 p) | 3.8% | 0.27% to 1.1% |
-| For scale: the 2026 rise in the UK price | about 24% | 1.6% to 7% |
+For Great Britain, the national move is almost all of it. Each region's weekly
+price change correlates 0.99 or higher with the UK change, and the part that is
+specific to the region has a typical size (standard deviation) of 0.20 p a week
+for E10 and 0.26 p for diesel. The UK price itself moves 2.4 p a week (E10) and
+3.7 p (diesel). With the reported elasticities (`docs/research/traffic-elasticity.md`),
+a typical regional-only move shifts traffic by about 0.01% to 0.04% a week.
 
-A Great Britain regional gap is about one twelfth of the effect of the national
-price swing. This is a ceiling, not a forecast: it ignores weather, drivers
-crossing regional borders, and the fact that regional gaps are steady, so people
-have adapted to them.
+Northern Ireland is the only case that moves on its own. Its gap changes by 0.83 p
+a week for E10 (1.24 p for diesel), about 0.04% to 0.15% of traffic a week. Over
+eight weeks its gap moved by up to 4.9 p for E10 and 8.4 p for diesel, which
+implies about 0.2% to 1.3% of traffic over two months.
+
+An earlier version of this note multiplied the size of each gap by the elasticity.
+That was the wrong quantity, because people react to changes, not to a standing
+difference. It overstated the case for regional features.
 
 ### 5. We cannot build a long history by country
 
@@ -167,7 +174,10 @@ This is the author's judgement.
 1. **Stage 2 uses the DESNZ weekly UK series**, petrol and diesel as two
    features, with their difference as a third if both are in one model. Joins
    must use `published_at` so a forecast sees only prices already public.
-2. **Test the national price at lags first**, in weeks, since the traffic
+2. **Build the features from price changes, not levels:** the weekly change, the
+   change over four and eight weeks, and rises and falls separately (a Japanese
+   study found drivers react about twice as much to a rise as to a fall). Then
+   **test the national price at lags first**, in weeks, since the traffic
    evidence says the response builds up over weeks and servicing delays could
    raise breakdowns months later.
 3. **Park the regional features** but keep the collector running twice a day, so
