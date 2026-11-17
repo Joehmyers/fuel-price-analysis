@@ -120,8 +120,7 @@ of the two, built as an index (each series set to 100 at the start), keeps
 
 ## What the fall-back gives us
 
-- **1,224 weeks** (June 2003 to November 2026) against about 40 weeks of station
-  data.
+- **1,224 weeks** (June 2003 to November 2026) against about 40 weeks of station data.
 - **More shocks.** Weeks with a price move over 3 p: 36 in all: 4 in 2008, 13 in
   2022 and 14 in 2026. The nine months of station data hold one rise
   and one fall; the long series holds three episodes.
@@ -129,8 +128,7 @@ of the two, built as an index (each series set to 100 at the start), keeps
   (July 2022). Diesel reached a record 200.0 p on 12 October 2026.
 - **A source that agrees with the station data.** On 41 Mondays, the station
   average sat 0.7 p above DESNZ, with a correlation of 0.99 for levels and
-  0.92 to 0.93 for weekly changes. Differences are plausible: DESNZ takes six
-  companies (about 60% of sales) and weights by sales, collected on Monday
+  0.92 to 0.93 for weekly changes. Differences are plausible: DESNZ takes six companies (about 60% of sales) and weights by sales, collected on Monday
   morning, while our figure is the end-of-Monday mean of all stations.
 
 What we give up: any country or region detail, and the Northern Ireland effect.
@@ -140,9 +138,7 @@ What we give up: any country or region detail, and the Northern Ireland effect.
 - **DESNZ against station data in March 2026.** The gap reached 4.3 p for
   petrol and 6.7 p for diesel on 23 March, during the sharp rise. The
   collection-time difference above fits, but we did not test it.
-- **Elasticity sources.** Reported UK values run from -0.07 to -0.29 and an
-  Irish study reports -0.33 to -0.53 for the Republic. We cannot say which suits
-  Northern Ireland.
+- **Elasticity sources.** Reported UK values run from -0.07 to -0.29 and an Irish study reports -0.33 to -0.53 for the Republic. We cannot say which suits Northern Ireland.
 
 ## Not established
 
