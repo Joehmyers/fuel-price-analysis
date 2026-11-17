@@ -104,14 +104,35 @@ def regional_gaps(areas: pd.DataFrame):
     _save(fig, "regional_gaps_E10.png")
 
 
+def relative_dispersion(areas: pd.DataFrame, spread: pd.DataFrame):
+    """Regional spread as a percentage of the UK price, with and without Northern Ireland."""
+    fig, axes = plt.subplots(1, 2, figsize=(10, 3.8), sharey=True)
+    for ax, fuel, title in zip(axes, ["E10", "diesel_standard"], ["E10 petrol", "Standard diesel"], strict=True):
+        s = spread[(spread["fuel"] == fuel) & (spread["day"] >= analysis.SETTLED_FROM)].set_index("day")
+        r = areas[(areas["level"] == "region") & (areas["fuel"] == fuel) & (areas["area"] != "Northern Ireland")]
+        sd_gb = r[r["day"] >= analysis.SETTLED_FROM].groupby("day")["mean_pence"].std()
+        ax.plot(s.index, s["spread_sd"] / s["uk_station_mean"] * 100, color=ORANGE, lw=1.4, label="All 12 regions")
+        ax.plot(sd_gb.index, sd_gb / s["uk_station_mean"].reindex(sd_gb.index) * 100, color=GREY, lw=1.4,
+                label="Without Northern Ireland")
+        ax.set_title(title, loc="left", fontsize=10)
+        ax.tick_params(axis="x", labelrotation=45)
+        _clean(ax)
+    axes[0].set_ylabel("Spread across regions,\nas % of the UK price")
+    axes[0].legend(frameon=False, fontsize=8)
+    fig.suptitle("Relative dispersion: regional spread as a share of the price", x=0.01, ha="left", fontsize=11)
+    _save(fig, "relative_dispersion.png")
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     areas, _, desnz = analysis.load()
+    spread = analysis.load()[1]
     coverage()
     print(OUT / "coverage.png")
     long_series(desnz)
     petrol_vs_diesel(desnz)
     regional_gaps(areas)
+    relative_dispersion(areas, spread)
 
 
 if __name__ == "__main__":

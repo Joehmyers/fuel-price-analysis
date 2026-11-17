@@ -29,6 +29,22 @@ Great Britain region's weekly price change tracks the UK change with correlation
   (3.7 p for diesel), and by up to 5.4 p (10.2 p). The regional gaps move far
   less than that: day to day, a region's gap varies by only 0.3 to 0.6 p (standard deviation) outside Northern Ireland.
 
+## Relative dispersion
+
+As a share of the UK price (15 Mar to 17 Nov 2026):
+
+| | E10 petrol | Standard diesel |
+|---|---|---|
+| Spread across 12 regions | 1.3% | 1.4% |
+| Spread without Northern Ireland | 0.6% | 0.5% |
+| Top to bottom, all 12 regions | 4.8% | 5.2% |
+| England / Scotland / Wales against the UK | +0.2% / +0.9% / -0.3% | +0.3% / +0.7% / -0.4% |
+| Northern Ireland against the UK | -3.8% | -4.2% |
+
+The spread in pence stays near 1 p without Northern Ireland when the price rises
+(E10: 1.02 p in the cheapest third of days, 0.99 p in the dearest), so the share
+falls as prices rise. Relative dispersion does not grow with the price.
+
 ## Do the gaps widen when prices move?
 
 Not in Great Britain. In the weeks with the biggest UK price moves, the spread
@@ -128,7 +144,8 @@ region's gap. We measured the regional-only part, from 15 March to 17 November
 
 ## Inflation (CPI)
 
-Not needed here: gaps are in pence on the same day, so general price rises
+Prices in this report are in pence as published, not adjusted for inflation.
+Adjusting is not needed here: gaps are in pence on the same day, so general price rises
 cancel out. CPI rose 2.9% from February to September 2026 (140.1 to 144.1),
 against a rise of over 20% in E10 (132 p in February, 162 p in late August). It would matter in stage 2 if the long 2003 onward
 DESNZ series is used, to put old prices in today's money. Fuel is part of CPI,

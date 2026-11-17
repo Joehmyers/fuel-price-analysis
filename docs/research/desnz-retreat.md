@@ -67,6 +67,32 @@ changed by less than 0.05 p for each 1 p the UK price moved. So the national
 price tells you nearly all there is to know about the regional price, apart from
 a steady offset. Northern Ireland is the one place the offset itself drifts.
 
+### 3b. Relative dispersion: the gaps as a share of the price
+
+![Regional spread as a share of the UK price](figures/relative_dispersion.png)
+
+Pence are not the whole story, because a 1 p gap matters less on a dear litre.
+Dividing by the UK price (15 March to 17 November 2026):
+
+| | E10 petrol | Standard diesel |
+|---|---|---|
+| Spread across 12 regions (standard deviation) | 2.1 p, 1.3% | 2.5 p, 1.4% |
+| Spread without Northern Ireland | 1.0 p, 0.6% | 0.9 p, 0.5% |
+| Top to bottom, all 12 regions | 7.8 p, 4.8% | 9.6 p, 5.2% |
+| England against the UK | +0.2% | +0.3% |
+| Scotland | +0.9% | +0.7% |
+| Wales | -0.3% | -0.4% |
+| Northern Ireland | -3.8% | -4.2% |
+
+Without Northern Ireland, regions sit within about 0.6% of each other. Is that a
+fixed number of pence, or a fixed share of the price? It looks like pence. When
+the E10 price was in its cheapest third (about 153 p), the spread was 1.02 p
+(0.67%). In its dearest third (about 171 p) it was 0.99 p (0.58%). The price
+rose 12%, the spread in pence stayed put, and the share fell. Diesel shows the
+same: 1.03 p to 0.79 p. So relative dispersion does not grow when prices rise.
+The "all 12 regions" line in the chart climbs only because Northern Ireland's
+gap is growing.
+
 ### 4. People respond to price changes, not price levels
 
 Elasticity is about changes: a 10% rise cuts traffic by about 1%. A region that
@@ -124,14 +150,40 @@ of the two, built as an index (each series set to 100 at the start), keeps
 - **More shocks.** Weeks with a price move over 3 p: 36 in all: 4 in 2008, 13 in
   2022 and 14 in 2026. The nine months of station data hold one rise
   and one fall; the long series holds three episodes.
-- **Record prices.** Petrol ran from 74.2 p (July 2003) to 191.6 p
-  (July 2022). Diesel reached a record 200.0 p on 12 October 2026.
+- **Record prices, in pence as published (not adjusted for inflation).** Petrol
+  ran from 74.2 p (July 2003) to 191.6 p (July 2022). Diesel reached a record
+  200.0 p on 12 October 2026. In the money of September 2026 the 2022 peak was
+  higher still (see "Inflation" below).
 - **A source that agrees with the station data.** On 41 Mondays, the station
   average sat 0.7 p above DESNZ, with a correlation of 0.99 for levels and
   0.92 to 0.93 for weekly changes. Differences are plausible: DESNZ takes six companies (about 60% of sales) and weights by sales, collected on Monday
   morning, while our figure is the end-of-Monday mean of all stations.
 
 What we give up: any country or region detail, and the Northern Ireland effect.
+
+## Inflation
+
+None of the prices in this note is adjusted for inflation. They are in pence as
+published (nominal). The ONS consumer price index (CPI) is fetched and cleaned
+(`data/clean/cpi_monthly.parquet`) but not applied.
+
+- **For the regional work it does not matter.** Gaps and spreads are compared on
+  the same day, and CPI rose 2.9% from February to September 2026.
+- **For the long series it does.** In the money of September 2026 (using the
+  CPI series as it stands now, not as it was known at the time), the peaks were:
+
+| Peak | Petrol, nominal | Petrol, real | Diesel, nominal | Diesel, real |
+|---|---|---|---|---|
+| 2008 | 119.4 p | 202.2 p | 132.9 p | 225.0 p |
+| 2022 | 191.6 p | 225.9 p | 199.2 p | 235.4 p |
+| 2026 (to September) | 173.5 p | 173.5 p | 197.6 p | 197.6 p |
+
+- Petrol in June 2003 (74.6 p) is 142.6 p in September 2026 money, so after
+  adjusting, it is up 22%, not 133%.
+- So "record" diesel in October 2026 is true only in nominal terms. In real terms
+  2022 was higher, and the 2008 diesel peak was above the 2026 one.
+- A model should test the raw and the adjusted price. When it does, use the CPI
+  value public at each date (`published_at`), not the final series.
 
 ## Contradictions
 
