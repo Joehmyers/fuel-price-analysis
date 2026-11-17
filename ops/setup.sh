@@ -22,7 +22,7 @@ source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 cd "$(ops_repo_root)" || exit 1
 
 # --- Configure your project here -------------------------------------------
-: "${SETUP_INSTALL:=}"   # e.g. npm ci / uv sync / poetry install / cargo fetch
+: "${SETUP_INSTALL:=python3 -m pip install -q -r requirements.txt}"   # e.g. npm ci / uv sync / poetry install / cargo fetch
 # ---------------------------------------------------------------------------
 
 auto=0
