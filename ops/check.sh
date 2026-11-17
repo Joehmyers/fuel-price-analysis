@@ -30,9 +30,9 @@ repo_root="$(ops_repo_root)"
 cd "$repo_root" || exit 1
 
 # --- Configure your project here -------------------------------------------
-: "${CHECK_LINT:=}"    # e.g. npm run lint       / ruff check .      / cargo clippy
-: "${CHECK_TEST:=}"    # e.g. npm test           / pytest            / cargo test
-: "${CHECK_BUILD:=}"   # e.g. npm run build      / python -m build   / cargo build
+: "${CHECK_LINT:=python3 -m ruff check .}"    # e.g. npm run lint       / ruff check .      / cargo clippy
+: "${CHECK_TEST:=python3 -m pytest -q}"    # e.g. npm test           / pytest            / cargo test
+: "${CHECK_BUILD:=python3 -m compileall -q src}"   # e.g. npm run build      / python -m build   / cargo build
 # ---------------------------------------------------------------------------
 
 strict=0
