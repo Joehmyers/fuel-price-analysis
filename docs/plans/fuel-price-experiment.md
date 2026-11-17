@@ -1,4 +1,4 @@
-# Plan: Test fuel prices as a demand feature inside the AA Databricks environment
+# Plan: Fuel price experiment
 
 > **Status:** Draft
 > **Date:** 2026-11-17
@@ -53,7 +53,7 @@ aggregate numbers cleared for sharing.
 ### A. Move the code and the public data
 
 The public data is committed in `datasets/public/` (see its README), so no
-download is needed. [DATABRICKS.md](../../DATABRICKS.md) is the entry point for
+download is needed. [FUEL_PRICE_EXPERIMENT.md](../../FUEL_PRICE_EXPERIMENT.md) is the entry point for
 whoever works in Databricks.
 
 - [x] A1. Commit the two public tables (`desnz_real.parquet`, `cpi_monthly.parquet`,
@@ -169,11 +169,11 @@ be answered.
 |------|--------|
 | `src/features/price_features.py` | new: weekly prices to as-of daily change features |
 | `tests/test_price_features.py` | new: visibility, lag and rise/fall tests |
-| `notebooks/databricks/01_load_fuel_prices.py` | new: write `fuel_prices_weekly` (code only, no data) |
-| `notebooks/databricks/02_detectability.py` | new: D0 |
-| `notebooks/databricks/03_experiments.py` | new: D1 to D6, logging to MLflow |
+| `notebooks/fuel_price_experiment/01_load_fuel_prices.py` | new: write `fuel_prices_weekly` (code only, no data) |
+| `notebooks/fuel_price_experiment/02_detectability.py` | new: D0 |
+| `notebooks/fuel_price_experiment/03_experiments.py` | new: D1 to D6, logging to MLflow |
 | `docs/sources.md` | add Databricks network answers (A1) and the DfT traffic source (B3) |
-| `docs/research/databricks-results.md` | new: results note (E2) |
+| `docs/research/fuel-price-experiment-results.md` | new: results note (E2) |
 | `docs/decisions/D-0004-*.md` | new, if the rule is met (E3) |
 
 ## Verification

@@ -9,7 +9,7 @@ regional prices sit from the UK price.
 So the code is plain Python, the data is parquet (a compact table file), and
 every path is set in `src/config.py`.
 
-**Working in Databricks? Start with [DATABRICKS.md](DATABRICKS.md).**
+**Running the experiment on AA data? Start with [FUEL_PRICE_EXPERIMENT.md](FUEL_PRICE_EXPERIMENT.md).**
 
 ## Rules
 

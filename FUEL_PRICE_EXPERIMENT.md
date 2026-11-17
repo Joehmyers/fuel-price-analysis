@@ -1,8 +1,8 @@
-# Start here: running stage 2 inside Databricks
+# Fuel price experiment: start here
 
-This file is for whoever works on this repo inside the AA Databricks workspace,
-a person or an AI assistant such as Genie. Read it first. The full plan is in
-[docs/plans/databricks-analysis.md](docs/plans/databricks-analysis.md).
+This file is for whoever runs the fuel price experiment inside the AA Databricks
+workspace, a person or an AI assistant such as Genie. Read it first. The full plan is in
+[docs/plans/fuel-price-experiment.md](docs/plans/fuel-price-experiment.md).
 
 ## The task
 
@@ -40,7 +40,7 @@ the experiments in section D of the plan.
 | `src/features/real_prices.py` | How the inflation-adjusted price was built |
 | `docs/research/desnz-retreat.md` | Why we use the national UK weekly price, with the numbers |
 | `docs/research/traffic-elasticity.md` | Reported traffic response to price (unverified figures) |
-| `docs/plans/databricks-analysis.md` | The plan: steps B to E are yours |
+| `docs/plans/fuel-price-experiment.md` | The plan: steps B to E are yours |
 | `src/fetch/`, `src/clean/` | Fetchers for the public data. Only needed to refresh the snapshot |
 
 Not needed in Databricks: the station-level code (`src/clean/stations.py`,
