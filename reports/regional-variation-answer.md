@@ -25,7 +25,7 @@ This data cannot answer that. Stage 2 can.
   range of region averages is 3.1 p (2.8).
 - **Compared with price moves.** The UK price changed by 2.4 p in a typical week
   (3.7 p for diesel), and by up to 5.4 p (10.2 p). The regional gaps move far
-  less than that: for a typical region the gap changes by under 0.5 p.
+  less than that: day to day, a region's gap varies by only 0.3 to 0.6 p (standard deviation) outside Northern Ireland.
 
 ## Do the gaps widen when prices move?
 
@@ -77,7 +77,7 @@ left out: DESNZ "unleaded" is mostly E10, and E5 sells about 18 p higher.
 
 Not needed here: gaps are in pence on the same day, so general price rises
 cancel out. CPI rose 2.9% from February to September 2026 (140.1 to 144.1),
-against a 23% rise in E10. It would matter in stage 2 if the long 2003 onward
+against a rise of over 20% in E10 (132 p in February, 162 p in late August). It would matter in stage 2 if the long 2003 onward
 DESNZ series is used, to put old prices in today's money. Fuel is part of CPI,
 and each month's figure comes about three weeks after the month ends, so use
 the release dates already stored.
