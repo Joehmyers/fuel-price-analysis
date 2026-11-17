@@ -6,5 +6,5 @@ lxml>=5
 openpyxl>=3.1
 matplotlib>=3.9
 pytest>=9
-ruff>=0.15
+ruff==0.15.21
 holidays>=0.60
